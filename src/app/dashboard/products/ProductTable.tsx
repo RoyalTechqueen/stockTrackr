@@ -7,10 +7,9 @@ import { supabase } from "@/lib/supabase";
 type Product = {
   id: number;
   name: string;
-  category: string;
+  litre: string;
   cost_price: number;
   selling_price: number;
-  quantity: number;
 };
 
 export default function ProductTable() {
@@ -62,21 +61,18 @@ export default function ProductTable() {
         <thead className="bg-teal-600 text-gray-700">
           <tr>
             <th className="px-4 py-2 border">Name</th>
-            <th className="px-4 py-2 border">Category</th>
+            <th className="px-4 py-2 border">litre</th>
             <th className="px-4 py-2 border">Cost Price</th>
             <th className="px-4 py-2 border">Selling Price</th>
-            
-             <th className="px-4 py-2 border">Quantity</th>
           </tr>
         </thead>
         <tbody>
           {products.map((prod) => (
             <tr key={prod.id}>
               <td className="px-4 py-2 border">{prod.name}</td>
-              <td className="px-4 py-2 border">{prod.category}</td>
+              <td className="px-4 py-2 border">{prod.litre}</td>
               <td className="px-4 py-2 border">₦{prod.cost_price}</td>
               <td className="px-4 py-2 border">₦{prod.selling_price}</td>
-              <td className="px-4 py-2 border">{prod.quantity}</td>
             </tr>
           ))}
         </tbody>

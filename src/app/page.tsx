@@ -109,7 +109,7 @@ export default function LandingPage() {
       <section id="features" className="py-20 bg-white px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-12">What We Offer</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 text-left">
             {[
               {
                 title: "Secure Authentication",
@@ -125,16 +125,9 @@ export default function LandingPage() {
               },
               {
                 title: "Smart Dashboard",
-                text: "See total daily sales, inventory status, and top products at a glance. Weekly trends visualized in charts.",
+                text: "See total daily sales, inventory status, and monthly breakdown",
               },
-              {
-                title: "Customer & Debt Tracking",
-                text: "Assign customers to sales, mark transactions as paid or on credit, and manage outstanding debts with ease.",
-              },
-              {
-                title: "Reporting & Export",
-                text: "View daily and weekly revenues. Export your sales reports as CSV for easy external analysis.",
-              },
+              
             ].map((feature, i) => (
               <div
                 key={i}
@@ -158,10 +151,10 @@ export default function LandingPage() {
             Got questions? Reach out to our support team for help.
           </p>
           <a
-            href="mailto:support@stocktrackr.app"
+            href="mailto:supportstocktrackr@gmail.com"
             className="text-teal-600 font-medium hover:underline"
           >
-            support@stocktrackr.app
+            supportstocktrackr@gmail.com
           </a>
         </div>
       </section>

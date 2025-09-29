@@ -5,13 +5,16 @@ import "./globals.css";
 const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
-  weight: ["400", "500", "700"], // Optional: Add weights as needed
+  weight: ["400", "500", "700"], 
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "StockTrackr",
   description: "Smart stock and sales management tool for business owners",
+  icons: {
+    icon: '/stocktrackr logo.png', 
+  },
 };
 
 export default function RootLayout({

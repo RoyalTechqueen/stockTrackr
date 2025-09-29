@@ -6,10 +6,9 @@ import { supabase } from "@/lib/supabase";
 export default function AddProductForm() {
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
+    litre: "",
     cost_price: "",
     selling_price: "",
-    quantity: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -40,34 +39,31 @@ export default function AddProductForm() {
       return;
     }
 
-    const { name, category, cost_price, selling_price, quantity } = formData;
+    const { name, litre, cost_price, selling_price } = formData;
 
     const costPriceNum = Number(cost_price);
     const sellingPriceNum = Number(selling_price);
-    const quantityNum = Number(quantity);
 
-    if (
-      !name ||
-      !category ||
-      isNaN(costPriceNum) ||
-      isNaN(sellingPriceNum) ||
-      isNaN(quantityNum)
-    ) {
+    if (!name || !litre || isNaN(costPriceNum) || isNaN(sellingPriceNum)) {
       setError("Please fill all fields correctly.");
       setLoading(false);
       return;
     }
 
-    const { error: insertError } = await supabase.from("products").insert([
-      {
-        name,
-        category,
-        cost_price: costPriceNum,
-        selling_price: sellingPriceNum,
-        quantity: quantityNum,
-        user_id: user.id,
-      },
-    ]);
+    // Insert product
+    const { data: {}, error: insertError } = await supabase
+      .from("products")
+      .insert([
+        {
+          name,
+          litre,
+          cost_price: costPriceNum,
+          selling_price: sellingPriceNum,
+          user_id: user.id,
+        },
+      ])
+      .select()
+      .single();
 
     if (insertError) {
       setError(insertError.message);
@@ -78,10 +74,9 @@ export default function AddProductForm() {
     setSuccess(true);
     setFormData({
       name: "",
-      category: "",
+      litre: "",
       cost_price: "",
       selling_price: "",
-      quantity: "",
     });
     setLoading(false);
   };
@@ -107,9 +102,9 @@ export default function AddProductForm() {
 
         <input
           type="text"
-          name="category"
-          placeholder="Category"
-          value={formData.category}
+          name="litre"
+          placeholder="litre"
+          value={formData.litre}
           onChange={handleChange}
           className="border px-3 py-2 rounded w-full"
           required
@@ -136,17 +131,6 @@ export default function AddProductForm() {
           className="border px-3 py-2 rounded w-full"
           min="0"
           step="0.01"
-          required
-        />
-    
-        <input
-          type="text"
-          name="quantity"
-          placeholder="Quantity"
-          value={formData.quantity}
-          onChange={handleChange}
-          className="border px-3 py-2 rounded w-full md:col-span-2"
-          min="0"
           required
         />
       </div>

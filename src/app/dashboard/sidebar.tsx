@@ -10,10 +10,9 @@ import { useRouter } from "next/navigation";
 const links = [
   { name: "Overview", href: "/dashboard" },
   { name: "Products", href: "/dashboard/products" },
+   { name: "Stock", href: "/dashboard/Stock" },
   { name: "Sales", href: "/dashboard/sales" },
-  { name: "Customers", href: "/dashboard/customers" },
   { name: "Reports", href: "/dashboard/reports" },
-  { name: "Settings", href: "/dashboard/settings" },
 ];
 
 export default function Sidebar() {

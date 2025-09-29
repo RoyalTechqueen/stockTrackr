@@ -10,7 +10,6 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    businessName: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,22 +22,15 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
 
-    const { email, password, businessName } = formData;
+    const { email, password } = formData;
 
-    const { data, error: loginError } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (loginError) {
-      alert(`Login failed: ${loginError.message}`);
-      setLoading(false);
-      return;
-    }
-
-    const userMeta = data.user?.user_metadata;
-    if (userMeta?.businessName !== businessName) {
-      alert("Business name does not match");
+    if (error) {
+      alert(`Login failed: ${error.message}`);
       setLoading(false);
       return;
     }
@@ -61,16 +53,6 @@ export default function LoginPage() {
             Enter your credentials to proceed to dashboard
           </p>
         </div>
-
-        <input
-          type="text"
-          name="businessName"
-          placeholder="Business Name"
-          required
-          value={formData.businessName}
-          onChange={handleChange}
-          className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
-        />
 
         <input
           type="email"
