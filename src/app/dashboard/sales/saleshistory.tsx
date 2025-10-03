@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+
 interface ProductInfo {
   name: string;
   selling_price: number;
@@ -15,6 +16,15 @@ interface SaleEntry {
   created_at: string;
   product: ProductInfo | null; 
 }
+
+type SupabaseSale = {
+  id: string;
+  product_id: string;
+  quantity: number;
+  created_at: string;
+  product: ProductInfo[] | null;
+};
+
 
 export default function SalesHistory() {
   const [sales, setSales] = useState<SaleEntry[]>([]);
@@ -38,8 +48,13 @@ export default function SalesHistory() {
 
       if (error) {
         console.error("Error fetching sales:", error.message);
-      } else {
-        setSales(data as SaleEntry[]);
+      } else if (data) {
+        const normalizedData = (data as SupabaseSale[]).map((sale) => ({
+          ...sale,
+          product: Array.isArray(sale.product) ? sale.product[0] : sale.product,
+        }));
+
+        setSales(normalizedData);
       }
 
       setLoading(false);
@@ -47,6 +62,7 @@ export default function SalesHistory() {
 
     fetchSales();
   }, []);
+
 
   if (loading) return <p className="p-4">Loading sales history...</p>;
   if (sales.length === 0) return <p className="p-4">No sales recorded yet.</p>;
@@ -56,7 +72,7 @@ export default function SalesHistory() {
       <h2 className="text-xl font-bold mb-4">Sales History</h2>
       <table className="min-w-full border text-sm text-left text-gray-600">
         <thead className="bg-teal-600 text-white">
-          <tr >
+          <tr>
             <th className="border px-4 py-2">Product</th>
             <th className="border px-4 py-2">Quantity</th>
             <th className="border px-4 py-2">Total</th>
@@ -66,7 +82,9 @@ export default function SalesHistory() {
         <tbody>
           {sales.map((sale) => (
             <tr key={sale.id}>
-              <td className="border px-4 py-2">{sale.product?.name ?? "Unknown"}</td>
+              <td className="border px-4 py-2">
+                {sale.product?.name ?? "Unknown"}
+              </td>
               <td className="border px-4 py-2">{sale.quantity}</td>
               <td className="border px-4 py-2">
                 ₦{(sale.product?.selling_price ?? 0) * sale.quantity}
