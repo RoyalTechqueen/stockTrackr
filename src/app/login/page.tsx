@@ -73,6 +73,7 @@ export default function LoginPage() {
           onChange={handleChange}
           className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
         />
+        
 
         <button
           type="submit"
