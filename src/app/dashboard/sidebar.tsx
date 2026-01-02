@@ -12,7 +12,7 @@ const links = [
   { name: "Products", href: "/dashboard/products" },
    { name: "Stock", href: "/dashboard/Stock" },
   { name: "Sales", href: "/dashboard/sales" },
-  { name: "Reports", href: "/dashboard/reports" },
+ 
 ];
 
 export default function Sidebar() {
